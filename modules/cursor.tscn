@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bem80xcjlhe05"]
+
+[ext_resource type="Texture2D" uid="uid://bxqykduphbp8k" path="res://textures/cursor.png" id="1_0cetm"]
+[ext_resource type="Script" path="res://modules/cursor.gd" id="1_q0a8q"]
+
+[node name="Cursor" type="TextureRect"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0cetm")
+script = ExtResource("1_q0a8q")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "E"
+horizontal_alignment = 1

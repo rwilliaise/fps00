@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0s5y8vwdle8q"]
+
+[ext_resource type="Script" path="res://scenes/boot.gd" id="1_44vpo"]
+[ext_resource type="Texture2D" uid="uid://0o053pvjmleu" path="res://icon.png" id="1_h8uua"]
+[ext_resource type="AudioStream" uid="uid://c051bpk7sh3a8" path="res://sounds/scratching.ogg" id="3_hvmmp"]
+
+[node name="Boot" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_44vpo")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_h8uua")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="MainTimer" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hvmmp")
+volume_db = -20.0
+
+[connection signal="timeout" from="Timer" to="." method="_timeout"]
+[connection signal="timeout" from="MainTimer" to="." method="_main_timeout"]

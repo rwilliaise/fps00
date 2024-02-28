@@ -1,0 +1,148 @@
+[gd_scene load_steps=13 format=3 uid="uid://dwhwn0b64g5hw"]
+
+[ext_resource type="Script" path="res://entities/terminal.gd" id="1_ngvq8"]
+[ext_resource type="Script" path="res://entities/terminal_ui.gd" id="2_qywc4"]
+[ext_resource type="AudioStream" uid="uid://cy3fcwdtc8scl" path="res://sounds/term_open.ogg" id="3_dp2k2"]
+[ext_resource type="AudioStream" uid="uid://c051bpk7sh3a8" path="res://sounds/scratching.ogg" id="4_pro3e"]
+[ext_resource type="Texture2D" uid="uid://b51sba0ambiow" path="res://textures/terminal.png" id="5_27t7d"]
+[ext_resource type="ArrayMesh" uid="uid://kf50my61r6km" path="res://models/terminal.obj" id="5_te0qe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e61go"]
+bg_color = Color(0.133333, 0.12549, 0.203922, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_jne7o"]
+font_names = PackedStringArray("Courier New", "Courier", "Monospace")
+subpixel_positioning = 0
+oversampling = 0.8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ansb6"]
+
+[sub_resource type="Animation" id="Animation_u1xfj"]
+resource_name = "open"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.66),
+"transitions": PackedFloat32Array(1.27456, 1),
+"update": 0,
+"values": [Vector2(512, 32), Vector2(512, 512)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LineEdit:editable")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.66),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../term_open")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_dp2k2")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h04pk"]
+_data = {
+"open": SubResource("Animation_u1xfj")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvl15"]
+albedo_texture = ExtResource("5_27t7d")
+texture_filter = 0
+
+[node name="Terminal" type="Node3D" groups=["selectable"]]
+script = ExtResource("1_ngvq8")
+
+[node name="UI" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = -223.808
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e61go")
+script = ExtResource("2_qywc4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 464.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_jne7o")
+bbcode_enabled = true
+scroll_active = false
+scroll_following = true
+
+[node name="LineEdit" type="LineEdit" parent="UI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("SystemFont_jne7o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ansb6")
+placeholder_text = "enter a command..."
+editable = false
+flat = true
+caret_blink = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+libraries = {
+"": SubResource("AnimationLibrary_h04pk")
+}
+
+[node name="term_open" type="AudioStreamPlayer3D" parent="."]
+
+[node name="scratching" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+stream = ExtResource("4_pro3e")
+volume_db = -30.0
+autoplay = true
+
+[node name="Terminal" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_tvl15")
+mesh = ExtResource("5_te0qe")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.2, -0.2)
+light_color = Color(0, 0.741176, 0, 1)
+light_energy = 0.1
+light_specular = 0.0
+shadow_enabled = true
+omni_attenuation = 1.07177
+
+[connection signal="text_submitted" from="UI/LineEdit" to="UI" method="_submit_command"]
+[connection signal="animation_finished" from="UI/AnimationPlayer" to="UI" method="_animation_finished"]

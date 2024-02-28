@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://bl08j3775cftg"]
+
+[ext_resource type="ArrayMesh" uid="uid://bqi5jkhpx3hac" path="res://models/light/light_linear.obj" id="1_u7w3m"]
+[ext_resource type="Texture2D" uid="uid://cy362cslj7lgk" path="res://textures/light_linear.png" id="2_ad8lp"]
+[ext_resource type="Texture2D" uid="uid://dqqhlh8uw3mpo" path="res://textures/linear_emission.png" id="3_x2s7t"]
+[ext_resource type="AudioStream" uid="uid://cmrsgs4yqnr8x" path="res://sounds/hum.wav" id="4_ywhyy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwplq"]
+albedo_texture = ExtResource("2_ad8lp")
+emission_enabled = true
+emission_texture = ExtResource("3_x2s7t")
+texture_filter = 0
+
+[node name="light_linear" type="SpotLight3D"]
+
+[node name="LightLinear" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0415356, 0.106179)
+material_override = SubResource("StandardMaterial3D_pwplq")
+mesh = ExtResource("1_u7w3m")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_ywhyy")
+volume_db = -2.0
+autoplay = true

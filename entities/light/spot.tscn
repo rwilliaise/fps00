@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqiarmbu2gkr2"]
+
+[ext_resource type="Texture2D" uid="uid://sv6whopan0yd" path="res://textures/light_glow.png" id="1_buaps"]
+
+[node name="light_spot" type="SpotLight3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.005
+billboard = 1
+texture = ExtResource("1_buaps")

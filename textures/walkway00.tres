@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dhkdr6t5q5io7"]
+
+[ext_resource type="Texture2D" uid="uid://b8t02k41a1bea" path="res://textures/walkway00.png" id="1_ygftq"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_ygftq")
+texture_filter = 0

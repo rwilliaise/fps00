@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bqi5jkhpx3hac"
+path="res://.godot/imported/light_linear.obj-0d4c17bc2d807ba022d33511cbfde97a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/light_linear.obj-0d4c17bc2d807ba022d33511cbfde97a.mesh"]
+
+source_file="res://models/light/light_linear.obj"
+dest_files=["res://.godot/imported/light_linear.obj-0d4c17bc2d807ba022d33511cbfde97a.mesh", "res://.godot/imported/light_linear.obj-0d4c17bc2d807ba022d33511cbfde97a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
